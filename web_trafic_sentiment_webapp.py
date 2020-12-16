@@ -7,57 +7,54 @@ Original file is located at
     https://colab.research.google.com/drive/15j4_xlMJHkvvCiieCaa5zz0x7wiP82Nz
 """
 
-!pip install streamlit
 
 import pandas as pd
 import streamlit as st
-import spacy  
+import pickle   
 import time
 import nltk
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from PIL import Image  
+from PIL import Image   ## For image
 from io import StringIO  ## for text input and output from the web app
 
-sid = SentimentIntensityAnalyzer()
+model = SentimentIntensityAnalyzer()
 def predict(string):
-    ss = sid.polarity_scores(string)
+    ss = model.polarity_scores(string)
     
     
-    print("{:.0%}".format(ss["compound"]), end=' ')
+    #print("{:.0%}".format(ss["compound"]), end=' ')
         
     if ss["compound"]>0:
-        print("positive")
+        return(str("{:.0%}".format(ss["compound"]))+" "+"negative")
           
     elif ss["compound"]<0:
-          print("negative")
+          return(str("{:.0%}".format(ss["compound"]))+" "+"negative")
           
     else:
-        print("neutral")
-
-#predict("bad")
-
-#predict("good and beautiful")
+        return("neutral")
 
 def run():
-    st.sidebar.info('You can either enter the news review online in the textbox or upload a txt file')
+    
+    st.sidebar.info('You can either enter your review online in the textbox or upload a txt file')
     st.set_option('deprecation.showfileUploaderEncoding', False)
     add_selectbox = st.sidebar.selectbox("How would you like to comment?", ("Online", "Txt file"))
     st.title("Predicting trafic review")
-    st.header('This app is created to predict trafic review')
+    st.header('Tell us your opinion about this WebApp')
     if add_selectbox == "Online":
         text1 = st.text_area('Enter text')
         output = ""
-        if st.button("Predict"):
+        if st.button("review prediction"):
             output = predict(text1)
-            #output = str(output[0]) 
-            st.success(f"The review is {output}")
+            st.success(f"Thank you! your review is {output}")
             st.balloons()
     elif add_selectbox == "Txt file":
           output = ""
-          file_buffer = st.file_uploader("Upload text file for new item", type=["txt"])
+          file_buffer = st.file_uploader("Upload text file for new review", type=["txt"])
           if st.button("Predict"):
-             text_news = file_buffer.read()
+             text_review = file_buffer.read()
+
+        
 
 
 if __name__ == "__main__":
