@@ -11,16 +11,15 @@ Original file is located at
 
 import pandas as pd
 import streamlit as st
-import pickle   ## For model loading 
-import spacy  ## For NLP tasks 
+import spacy  
 import time
 import nltk
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-sid = SentimentIntensityAnalyzer()
-from PIL import Image   ## For image
+from PIL import Image  
 from io import StringIO  ## for text input and output from the web app
 
+sid = SentimentIntensityAnalyzer()
 def predict(string):
     ss = sid.polarity_scores(string)
     
@@ -36,14 +35,14 @@ def predict(string):
     else:
         print("neutral")
 
-predict("bad")
+#predict("bad")
 
-predict("good and beautiful")
+#predict("good and beautiful")
 
 def run():
-    st.sidebar.info('You can either enter the news item online in the textbox or upload a txt file')
+    st.sidebar.info('You can either enter the news review online in the textbox or upload a txt file')
     st.set_option('deprecation.showfileUploaderEncoding', False)
-    add_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Txt file"))
+    add_selectbox = st.sidebar.selectbox("How would you like to comment?", ("Online", "Txt file"))
     st.title("Predicting trafic review")
     st.header('This app is created to predict trafic review')
     if add_selectbox == "Online":
@@ -51,7 +50,7 @@ def run():
         output = ""
         if st.button("Predict"):
             output = predict(text1)
-            output = str(output[0]) # since its a list, get the 1st item
+            #output = str(output[0]) 
             st.success(f"The review is {output}")
             st.balloons()
     elif add_selectbox == "Txt file":
@@ -60,8 +59,6 @@ def run():
           if st.button("Predict"):
              text_news = file_buffer.read()
 
-
-# in the latest stream-lit version ie. 68, we need to explicitly convert bytes to text
 
 if __name__ == "__main__":
   run()
