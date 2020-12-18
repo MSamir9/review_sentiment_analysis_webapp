@@ -10,7 +10,6 @@ Original file is located at
 
 import pandas as pd
 import streamlit as st
-import pickle   
 import time
 import nltk
 nltk.download('vader_lexicon')
