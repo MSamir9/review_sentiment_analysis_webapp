@@ -30,7 +30,7 @@ def predict(string):
         return("positive")
           
     elif ss["compound"]<0:
-          return("negative")
+        return("negative")
           
     else:
         return("neutral")
