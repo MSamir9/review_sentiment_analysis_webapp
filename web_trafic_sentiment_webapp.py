@@ -23,12 +23,14 @@ def predict(string):
     
     
     #print("{:.0%}".format(ss["compound"]), end=' ')
+    #str("{:.0%}".format(ss["compound"]))+" "+
+    #str("{:.0%}".format(-1*ss["compound"]))+" "+
         
     if ss["compound"]>0:
-        return(str("{:.0%}".format(ss["compound"]))+" "+"positive")
+        return("positive")
           
     elif ss["compound"]<0:
-          return(str("{:.0%}".format(-1*ss["compound"]))+" "+"negative")
+          return("negative")
           
     else:
         return("neutral")
